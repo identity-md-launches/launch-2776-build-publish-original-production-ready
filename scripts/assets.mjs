@@ -1,0 +1,8 @@
+// Generates the original, editable social illustration. Run with Node 22.18+.
+import { writeFile } from 'node:fs/promises';
+import { hamster, snack } from '../src/art.ts';
+const art = hamster('', true).replace('<svg ', '<svg x="760" y="135" width="350" height="325" ');
+const pieces = ['seed', 'nut', 'berry', 'leaf'].map((kind, i) => `<g transform="translate(${95 + i * 92} 430)"><rect width="76" height="76" rx="16" fill="${['#f4d58d','#e5bd95','#d4c2de','#c5d6aa'][i]}"/>${snack(kind).replace('<svg ', '<svg x="8" y="8" width="60" height="60" ')}</g>`).join('');
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="#f7f3e8"/><rect x="22" y="22" width="1156" height="586" rx="32" fill="none" stroke="#d7c9ac" stroke-width="2"/><text x="90" y="175" font-family="Georgia,serif" font-size="76" font-weight="bold" fill="#352a20">Squeek Pouch<tspan fill="#286f60">.</tspan></text><text x="95" y="258" font-family="Georgia,serif" font-size="37" fill="#493827">A little pouch. A lovely puzzle.</text><text x="95" y="325" font-family="sans-serif" font-size="23" fill="#77634e">Pack your way through 12 cozy levels.</text><text x="95" y="360" font-family="sans-serif" font-size="23" fill="#77634e">A little energy from the Squeekchain wheel.</text>${pieces}${art}<path d="m1000 100 6 13 14 2-10 10 2 14-12-7-13 7 3-14-11-10 15-2Z" fill="#e5b952" stroke="#886725" stroke-width="2"/><text x="960" y="535" font-family="Georgia,serif" font-style="italic" font-size="26" fill="#286f60">Happy cheeks.</text></svg>`;
+await writeFile(new URL('../public/share.svg', import.meta.url), svg);
+console.log('Wrote public/share.svg. Render it at 1200 × 630 to update public/share.png.');

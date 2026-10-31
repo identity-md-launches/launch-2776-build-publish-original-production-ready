@@ -1,0 +1,11 @@
+# Path budget: artifacts/submission-budget.json (.gitignore maximum 512 bytes).
+**/node_modules/
+**/.vite/
+**/.cache/
+**/coverage/
+**/playwright-report/
+**/test-results/
+**/.playwright-mcp/
+**/*.tsbuildinfo
+/test/scratch/
+# dist/ is a required, included deliverable.
